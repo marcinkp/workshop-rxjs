@@ -6,17 +6,17 @@ export function callServices() {
   return userCall().pipe(
       mergeMap(user =>
           zip(paypalCall(), payuCall()).pipe(
-              map(([paypal, payu]) => merge(user, paypal, payu))
+              map(([paypal, payu]) => merge(user, paypal, payu, {data: "empty"}))
           )
       )
   )
 }
-function merge(jsonUser, jsonPaypal, jsonPayU) {
+function merge(jsonUser, jsonPaypal, jsonPayU, jsonCreditCard) {
   return {
     user: jsonUser,
     paypal: jsonPaypal,
     payu: jsonPayU,
-    creditcard: {nodata: "brak"}
+    creditcard: jsonCreditCard
   }
 }
 

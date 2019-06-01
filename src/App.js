@@ -25,8 +25,6 @@ export default class App extends React.Component {
         .subscribe(merged => this.setState(merged))
   }
 
-
-
   render() {
     return (
         <div className="container">
