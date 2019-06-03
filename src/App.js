@@ -16,6 +16,7 @@ export default class App extends React.Component {
       paypal: {},
       payu: {},
       creditcard: {},
+      providers: {},
     }
   }
   handleClick = () => {
@@ -29,21 +30,37 @@ export default class App extends React.Component {
     return (
         <div className="container">
           <div className="row">
+            <div className="col-sm-3 text-center">
+              <strong>User Call</strong>
+            </div>
+            <div className="col-sm-3 text-center" >
+              <strong>Pay Pal</strong>
+            </div>
+            <div className="col-sm-3 text-center" >
+              <strong>PayU</strong>
+            </div>
+            <div className="col-sm-3 text-center">
+              <strong>Credit Card</strong>
+            </div>
+          </div>
+          <div className="row">
             <Result className="col-sm-3" value={this.state.user}/>
             <Result className="col-sm-3" value={this.state.paypal}/>
             <Result className="col-sm-3" value={this.state.payu}/>
             <Result className="col-sm-3" value={this.state.creditcard}/>
           </div>
           <div className="row">
-            <Result className="col-sm-12" value={this.state}/>
+            <Result className="col-sm-12" value={this.state.providers}/>
           </div>
 
           <div className="row">
+            <div className="col-sm-12">
             <button type="button"
                     className="btn btn-primary"
                     onClick={this.handleClick}>
               Execute
             </button>
+            </div>
           </div>
         </div>
     );

@@ -1,12 +1,13 @@
 import {catchError, map, mergeMap, tap} from "rxjs/operators";
 import {of, zip} from "rxjs";
 import {ajax} from "rxjs/ajax";
+import * as providers from "./ProvidersProvider"
 
 export function callServices() {
   return userCall().pipe(
       mergeMap(user =>
-          zip(paypalCall(), payuCall()).pipe(
-              map(([paypal, payu]) => merge(user, paypal, payu, {data: "empty"}))
+          zip(paypalCall(), payuCall(), creditcardCall()).pipe(
+              map(([paypal, payu, creditcard]) => merge(user, paypal, payu, creditcard))
           )
       )
   )
@@ -16,20 +17,25 @@ function merge(jsonUser, jsonPaypal, jsonPayU, jsonCreditCard) {
     user: jsonUser,
     paypal: jsonPaypal,
     payu: jsonPayU,
-    creditcard: jsonCreditCard
+    creditcard: jsonCreditCard,
+    providers: providers.calculateProviders(jsonCreditCard, jsonPaypal, jsonPayU)
   }
 }
 
 function payuCall() {
-  return callService("http://localhost:8080/payu")
+  return callService("http://localhost:3000/payu/active")
 }
 
 function paypalCall() {
-  return callService("http://localhost:8080/paypal")
+  return callService("http://localhost:3000/paypal/verify")
 }
 
 function userCall() {
-  return callService("http://localhost:8080/user")
+  return callService("http://localhost:3000/user")
+}
+
+function creditcardCall() {
+  return callService("http://localhost:3000/creditcard/allowed")
 }
 
 function callService(url) {
