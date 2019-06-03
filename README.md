@@ -1,10 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## Run on docker
+
+`$ npm run build`
+
+`$ docker build -t workshop-rxjs`
+
+`docker run -dit --name workshop-rxjs-app -p 9000:80 workshop-rxjs`
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm install`
+### `npm install` 
 
 ### `npm start`
 
